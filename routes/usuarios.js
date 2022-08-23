@@ -2,8 +2,15 @@
 const { Router } = require('express');
 const { check } = require('express-validator'); // es una gran colección de middlewares, tiene una gran cantidad de validaciones que podemos ejecutar antes de llamar nuestra función o ruta
 
+/* const { validarCampos } = require('../middlewares/validar-campos');
+const { validarJWT } = require('../middlewares/validar-jwt');
+const { esAdminRole, tieneRol } = require('../middlewares/validar-roles');
+ */ // optimización de importaciones con el archivo index en el directorio middlewares
+const { validarCampos,
+        validarJWT,
+        esAdminRole,
+        tieneRol } = require( '../middlewares' )
 
-const { validarCampos } = require('../middlewares/validar-campos');
 const { esRolValido , emailExiste , existeUsuarioPorId} = require('../helpers/db-validators');
 
 const { usuariosGet,
@@ -14,9 +21,10 @@ const { usuariosGet,
 
 
 
+
 const router = Router();
 
-router.get('/', usuariosGet )
+router.get('/', usuariosGet );
 
 router.put('/:id', [
     check('id', 'No es un ID válido').isMongoId(), // express validator tiene una función específica para validar id de Mongo
@@ -37,6 +45,9 @@ router.post('/', [
 ] ,usuariosPost)
 
 router.delete('/:id', [
+    validarJWT, 
+    //esAdminRole,
+    tieneRol( 'ADMIN_ROLE' , 'USER_ROLE' , 'VENTAS_ROLE' ),
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom(existeUsuarioPorId),
     validarCampos

@@ -26,7 +26,7 @@ const UsuarioSchema = Schema({
     rol:{
         type: String,
         required: true,
-        enum:['ADMIN_ROLE', 'USER_ROLE']
+        enum:[ 'ADMIN_ROLE' , 'USER_ROLE' ]
     },
     estado:{
         type: Boolean,
@@ -43,7 +43,8 @@ const UsuarioSchema = Schema({
 // para sobreescribir los methods debemos usar funciones normales ya que debemos utilizar el objeto this
 // y en las funciones flecha este apunta fuera de la misma y las funciones normales apuntan a la instancia creada
 UsuarioSchema.methods.toJSON = function(){
-    const { __v, password, ...usuario } = this.toObject(); //desestructuramos el usuario para separar __v y password del resto de los elementos. ( operador rest )
+    const { __v, password, _id, ...usuario } = this.toObject(); //desestructuramos el usuario para separar __v y password del resto de los elementos. ( operador rest )
+    usuario.uid = _id;
     return usuario;
 }// esta modificación del método JSON quita estos campos del objeto usuario de la respuesta
 
