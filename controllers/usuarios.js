@@ -35,7 +35,7 @@ const usuariosGet = async (req = request , res = response) => {
     });
 }
 
-const usuariosPost = async (req, res) => {
+const usuariosPost = async (req , res) => {
     
     
 

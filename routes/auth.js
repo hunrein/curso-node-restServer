@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const { check } = require('express-validator'); // es una gran colección de middlewares, tiene una gran cantidad de validaciones que podemos ejecutar antes de llamar nuestra función o ruta
-const { login, googleSignIn } = require('../controllers/auth');
 const { validarCampos } = require('../middlewares/validar-campos');
 
+const { login, googleSignIn } = require('../controllers/auth');
 
 
 
