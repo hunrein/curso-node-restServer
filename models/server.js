@@ -2,7 +2,10 @@
 
 const express = require('express')
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
+
 const { dbConection } = require('../DB/config');
+
 
 class Server {
 
@@ -15,6 +18,7 @@ class Server {
             buscar:     '/api/buscar',
             categorias: '/api/categorias',
             productos:  '/api/productos',
+            uploads:    '/api/uploads',
             usuarios:   '/api/usuarios'
         }
 
@@ -44,6 +48,12 @@ class Server {
 
         //DIRECTORIO PÚBLICO
         this.app.use( express.static('public') );
+
+        // FILEUPLOAD - CARGA DE ARCHIVOS
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/'
+        }));
     }
 
     // DEFINIMOS LAS RUTAS DENTRO DE UN MÉTODO LLAMADO ROUTES
@@ -52,6 +62,7 @@ class Server {
        this.app.use( this.path.buscar , require( '../routes/buscar' ));
        this.app.use( this.path.categorias , require( '../routes/categorias' )); 
        this.app.use( this.path.productos , require( '../routes/productos' ));
+       this.app.use(this.path.uploads , require( '../routes/uploads'));
        this.app.use( this.path.usuarios , require( '../routes/usuarios' ));       
     }
 

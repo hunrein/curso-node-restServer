@@ -16,6 +16,9 @@ const crearProducto = async( req = request , res = response ) => {
     const productoDB = await Producto.findOne({nombre});
     
     console.log({nombre})
+    
+    console.log({body})
+    
     if( productoDB ){
         return res.status(400).json({
             msg: `El producto ${productoDB.nombre} ya existe`
@@ -28,8 +31,9 @@ const crearProducto = async( req = request , res = response ) => {
         usuario: req.usuario._id,      
     }
 
+    console.log({data})
     const producto = new Producto(data);
-
+    console.log(producto)
     await producto.save();
     
     res.json({producto});
