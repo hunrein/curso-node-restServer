@@ -10,7 +10,7 @@ const usuario = require("../models/usuario");
 const crearProducto = async( req = request , res = response ) => {
 
     const { estado , usuario , ...body  } = req.body;
-    nombre = body.nombre
+    nombre = body.nombre.toUpperCase();
 
     // verificar si el producto no existe en la DB
     const productoDB = await Producto.findOne({nombre});

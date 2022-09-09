@@ -8,29 +8,30 @@ const ProductoSchema = Schema({
     nombre:{
         type: String,
         required: [true, 'El nombre es obligatorio'],
-        unique: true
+        unique: true,
     },
     estado:{
         type: Boolean,
         default: true,
-        required: true
+        required: true,
     },
     usuario: {
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
-        required: true
+        required: true,
     },
     categoria:{
         type: Schema.Types.ObjectId,
         ref: 'Categoria',
-        required: true
+        required: true,
     },
     precio:{
         Type: Number,
-        default: 0
+        default: 0,
     },
-    descripcion:{ Type: String },
-    disponible:{ Type: Boolean },
+    descripcion:{ Type: String, },
+    disponible:{ Type: Boolean,},
+    img: { Type: String,},
 
 });
 
